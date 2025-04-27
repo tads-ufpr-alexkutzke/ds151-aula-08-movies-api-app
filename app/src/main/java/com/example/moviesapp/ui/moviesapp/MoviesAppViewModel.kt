@@ -3,6 +3,7 @@ package com.example.moviesapp.ui.moviesapp
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviesapp.network.MoviesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -15,8 +16,8 @@ class MoviesAppViewModel(val fake: Boolean = false): ViewModel() {
         if(fake) _movies.addAll(fourMovies)
         else{
             viewModelScope.launch {
-                delay(5000)
-                _movies.addAll(fourMovies)
+                val movies = MoviesApi.retrofitService.getMovies()
+                _movies.addAll(movies)
             }
         }
     }
