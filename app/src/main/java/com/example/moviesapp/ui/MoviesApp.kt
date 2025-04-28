@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -53,16 +55,22 @@ fun MoviesApp(
                 )
             ) { backStackEntry ->
                 val movieId:Int = backStackEntry.arguments?.getInt("movieId") ?: 1
-                val movie: Movie? = moviesAppViewModel.getMovie(movieId)
+                val movie = moviesAppViewModel.movieDetails.collectAsState()
 
-                movie?.let{
-                    MovieDetailsScreen(
-                        movie = it,
-                        onGoBackClick = {
-                            navController.navigate("movies")
-                        }
-                    )
+                LaunchedEffect(movieId) {
+                    moviesAppViewModel.getMovie(movieId)
+                }
 
+                if(movie.value == null) Text("Carregando ...")
+                else{
+                    movie.value?.let {
+                        MovieDetailsScreen(
+                            movie = it,
+                            onGoBackClick = {
+                                navController.navigate("movies")
+                            }
+                        )
+                    }
                 }
             }
         }
