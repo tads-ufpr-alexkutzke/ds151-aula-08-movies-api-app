@@ -34,15 +34,14 @@ fun MoviesApp(
             startDestination = "movies",
         ) {
             composable("movies") {
-                if(moviesAppViewModel.movies.isNotEmpty()){
+                if(moviesAppViewModel.movies.isEmpty()) Text("Carregando ...")
+                else{
                     MoviesScreen(
                         movies = moviesAppViewModel.movies,
                         onGoToMovieDetailsClick = { movieId ->
                             navController.navigate("movieDetails/$movieId")
-                        })
-                }
-                else{
-                    Text("Carregando ...")
+                        }
+                    )
                 }
             }
             composable(
@@ -54,20 +53,15 @@ fun MoviesApp(
                     }
                 )
             ) { backStackEntry ->
-                val movieId:Int = backStackEntry.arguments?.getInt("movieId") ?: 1
-                val movie = moviesAppViewModel.movieDetails.collectAsState()
+                val movieId:Int? = backStackEntry.arguments?.getInt("movieId")
 
-                LaunchedEffect(movieId) {
-                    moviesAppViewModel.getMovie(movieId)
-                }
-
-                if(movie.value == null) Text("Carregando ...")
+                if(movieId == null) Text("Carregando ...")
                 else{
-                    movie.value?.let {
+                    movieId.let {
                         MovieDetailsScreen(
-                            movie = it,
+                            movieId = it,
                             onGoBackClick = {
-                                navController.navigate("movies")
+                                navController.popBackStack()
                             }
                         )
                     }
