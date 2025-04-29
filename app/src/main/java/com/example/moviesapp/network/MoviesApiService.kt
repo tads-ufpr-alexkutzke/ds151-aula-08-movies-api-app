@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 private const val BASE_URL =
-    "http://192.168.25.209:9999/"
+    "https://moviesapi.kutzke.com.br"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
