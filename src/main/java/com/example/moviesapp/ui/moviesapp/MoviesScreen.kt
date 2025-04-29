@@ -22,14 +22,16 @@ fun MoviesScreen(
         is MoviesScreenUiState.Error -> ErrorScreen( modifier = Modifier.fillMaxSize())
     }
 }
-
+/*
 @Preview
 @Composable
 fun MoviesScreenPreview(){
     MoviesAppTheme {
-        MoviesList(
+        MoviesScreen(
             movies = fourMovies,
-            onMovieClick = {},
+            onGoToMovieDetailsClick = {},
         )
     }
 }
+
+*/

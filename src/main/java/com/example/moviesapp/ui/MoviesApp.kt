@@ -2,7 +2,6 @@ package com.example.moviesapp.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +22,6 @@ import com.example.moviesapp.ui.moviesapp.MoviesAppViewModel
 import com.example.moviesapp.ui.moviesapp.MoviesScreen
 import com.example.moviesapp.ui.theme.MoviesAppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoviesApp(
     navController: NavHostController = rememberNavController(),
